@@ -1,27 +1,43 @@
 import React, { Component } from "react";
-import axios from "../../../axios";
+import { Route, NavLink, withRouter } from "react-router-dom";
 
-import "./Blog.css";
 import Posts from "./Posts/Posts";
+import FullPost from "./FullPost/FullPost"
+import "./Blog.css";
+import NewPost from "./NewPost/NewPost";
 
 class Blog extends Component {
-
   render() {
+    console.log(this.props);
     return (
-      <div className='Blog'>
+      <div className="Blog">
         <header>
           <nav>
             <ul>
               <li>
-                <a href="/">Home</a>
+                <NavLink to="/" exact activeClassName="my-active">
+                  Home
+                </NavLink>
               </li>
               <li>
-                <a href="/new-post">New Post</a>
+                <NavLink
+                  to={{
+                    pathname: "/new-post",
+                    hash: "#submit",
+                    search: "?quick-submit=true",
+                  }}
+                  activeClassName="my-active"
+                >
+                  New Post
+                </NavLink>
               </li>
             </ul>
           </nav>
         </header>
-        <Posts/>
+        <Route path="/" exact component={Posts} />
+        <Route path="/new-post" exact component={NewPost} />
+        <Route path="/:id" exact component={FullPost} />
+        {/* <Route path="/new-post" exact render={()=> <NewPost/>} /> */}
         {/* <section>
           <FullPost id={this.state.selectedPostId} />
         </section>
@@ -33,4 +49,4 @@ class Blog extends Component {
   }
 }
 
-export default Blog;
+export default withRouter(Blog);
