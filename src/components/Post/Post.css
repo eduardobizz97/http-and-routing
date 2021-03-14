@@ -1,23 +1,32 @@
 .Post {
-    width: 200px;
-    background-color: lightgreen;
-    padding: 16px;
-    text-align: center;
-    overflow: hidden;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    margin: 10px;
-    box-sizing: border-box;
-    cursor: pointer;
+  width: 200px;
+  padding: 16px;
+  text-align: center;
+  overflow: hidden;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  margin: 10px;
+
+  background-color: rgb(252, 224, 67, 0.1);
+  background-image: linear-gradient(
+    315deg,
+    rgb(252, 224, 67) 0%,
+    rgb(251, 123, 162) 70%
+  );
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.Post h1 {
+  color: white;
 }
 
 .Post:hover,
 .Post:active {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
 .Author {
-    margin: 16px 0;
-    color: black;
-    font-size: 20px;
+  margin: 16px 0;
+  color: black;
+  font-size: 20px;
 }

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 import "./NewPost.css";
 
@@ -8,33 +9,48 @@ class NewPost extends Component {
     title: "",
     content: "",
     author: "Max",
-    dataLoaded: '',
+    dataLoaded: "",
+    submitted: false,
   };
 
+  componentDidUpdate() {
+    //if user auth => this.props.history.replace('/posts');
+  }
+
   postDataHandler = () => {
-    this.setState({dataLoaded: 'Loading...'});
+    this.setState({ dataLoaded: "Loading..." });
     const post = {
       title: this.state.title,
       body: this.state.content,
       author: this.state.author,
     };
-    axios
-      .post("/posts", post)
-      .then((response) => {
-        if (response.status === 201) {
-          this.setState({dataLoaded:'Data was sent'});
-        }
-        
-      });
+    axios.post("/posts", post).then((response) => {
+      if (response.status === 201) {
+        this.setState({
+          dataLoaded: "Data was sent",
+          
+        });
+
+        setTimeout(() => {
+          this.props.history.replace('/posts')
+        }, 1000);
+      }
+    });
   };
 
   render() {
     let dataInfo;
-    if (this.state.dataLoaded) {
-      dataInfo = <p style={{fontSize: 30}}>{this.state.dataLoaded}</p>;
+    let redirect = null;
+    if (this.state.submitted) {
+      redirect = <Redirect to="/posts" />;
     }
+    if (this.state.dataLoaded) {
+      dataInfo = <p style={{ fontSize: 30 }}>{this.state.dataLoaded}</p>;
+    }
+
     return (
       <div className="NewPost">
+        {redirect}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input
